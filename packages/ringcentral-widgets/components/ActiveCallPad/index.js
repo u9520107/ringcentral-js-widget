@@ -24,18 +24,38 @@ import callCtrlLayouts from '../../enums/callCtrlLayouts';
 import styles from './styles.scss';
 import i18n from './i18n';
 
-const DisplayButtonNumber = 6;
-
-function MoreActionItem({
-  title,
-  icon: Icon,
-  disabled,
-  onClick,
-}) {
-  const iconClassName = classnames(
-    styles.buttonIcon,
-    disabled ? styles.buttonDisabled : styles.buttonActive
-  );
+export default function ActiveCallPad(props) {
+  const muteButton = props.isOnMute ?
+    (
+      <ActiveCallButton
+        onClick={props.onUnmute}
+        className={styles.callButton}
+        icon={MuteIcon}
+        title={i18n.getString('unmute', props.currentLocale)}
+        disabled={props.isOnHold}
+      />
+    ) :
+    (
+      <ActiveCallButton
+        onClick={props.onMute}
+        className={styles.callButton}
+        title={i18n.getString('mute', props.currentLocale)}
+        icon={UnmuteIcon}
+        disabled={props.isOnHold}
+      />
+    );
+  const onHoldClicked = props.isOnHold ?
+    props.onUnhold :
+    props.onHold;
+  const onRecordClicked = props.recordStatus === recordStatus.recording ?
+    props.onStopRecord :
+    props.onRecord;
+  const disabledFlip = props.flipNumbers.length === 0;
+  const recordTitle = props.recordStatus === recordStatus.recording ?
+    i18n.getString('stopRecord', props.currentLocale) :
+    i18n.getString('record', props.currentLocale);
+  const isRecordButtonActive = props.recordStatus === recordStatus.recording;
+  const isRecordDisabled = props.recordStatus === recordStatus.pending;
   return (
     <div
       className={styles.buttonItem}
