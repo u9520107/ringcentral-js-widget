@@ -98,7 +98,9 @@ class AnimationAlert extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return nextState.messages !== this.state.messages;
+    return !(
+      nextState.messages === this.state.messages || nextProps.messages === this.state.props
+    );
   }
 
   render() {

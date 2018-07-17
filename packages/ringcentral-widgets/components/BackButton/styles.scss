@@ -1,5 +1,3 @@
-@import '../../lib/commonStyles/fonts';
-
 .backButton {
   display: inline;
 }
@@ -16,8 +14,4 @@
   top: 4px;
   left: 34px;
   font-size: 15px;
-  color: $ash;
-  &:hover {
-    color: inherit;
-  }
 }
