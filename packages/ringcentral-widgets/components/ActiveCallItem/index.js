@@ -454,14 +454,6 @@ export default class ActiveCallItem extends Component {
       externalViewEntity,
       externalHasEntity,
       readTextPermission,
-      isOnConferenceCall,
-      showMergeCall,
-      onMergeCall,
-      disableMerge,
-      hasActionMenu,
-      showAnswer,
-      avatarUrl,
-      showAvatar,
     } = this.props;
     const phoneNumber = this.getPhoneNumber();
     const parsedInfo = parseNumber({
@@ -547,37 +539,33 @@ export default class ActiveCallItem extends Component {
           />
           {extraButton}
         </div>
-        {
-          hasActionMenu
-            ? <ActionMenu
-              extended={this.state.extended}
-              onToggle={this.toggleExtended}
-              currentLocale={currentLocale}
-              disableLinks={disableLinks}
-              phoneNumber={phoneNumber}
-              onClickToSms={
-                readTextPermission ?
-                  () => this.clickToSms({ countryCode, areaCode })
-                  : undefined
-              }
-              hasEntity={!!contactMatches.length}
-              onViewEntity={onViewContact && this.viewSelectedContact}
-              onCreateEntity={onCreateContact && this.createSelectedContact}
-              textTitle={i18n.getString('text', currentLocale)}
-              onLog={onLogCall}
-              isLogging={isLogging || this.state.isLogging}
-              isLogged={activityMatches.length > 0}
-              isCreating={this.state.isCreating}
-              addLogTitle={i18n.getString('addLog', currentLocale)}
-              editLogTitle={i18n.getString('editLog', currentLocale)}
-              createEntityTitle={i18n.getString('addEntity', currentLocale)}
-              viewEntityTitle={i18n.getString('viewDetails', currentLocale)}
-              externalViewEntity={() => externalViewEntity && externalViewEntity(this.props.call)}
-              externalHasEntity={externalHasEntity && externalHasEntity(this.props.call)}
-              disableClickToSms={disableClickToSms}
-            />
-            : null
-        }
+        <ActionMenu
+          extended={this.state.extended}
+          onToggle={this.toggleExtended}
+          currentLocale={currentLocale}
+          disableLinks={disableLinks}
+          phoneNumber={phoneNumber}
+          onClickToSms={
+            readTextPermission ?
+              () => this.clickToSms({ countryCode, areaCode })
+              : undefined
+          }
+          hasEntity={!!contactMatches.length}
+          onViewEntity={onViewContact && this.viewSelectedContact}
+          onCreateEntity={onCreateContact && this.createSelectedContact}
+          textTitle={i18n.getString('text', currentLocale)}
+          onLog={onLogCall}
+          isLogging={isLogging || this.state.isLogging}
+          isLogged={activityMatches.length > 0}
+          isCreating={this.state.isCreating}
+          addLogTitle={i18n.getString('addLog', currentLocale)}
+          editLogTitle={i18n.getString('editLog', currentLocale)}
+          createEntityTitle={i18n.getString('addEntity', currentLocale)}
+          viewEntityTitle={i18n.getString('viewDetails', currentLocale)}
+          externalViewEntity={() => externalViewEntity && externalViewEntity(this.props.call)}
+          externalHasEntity={externalHasEntity && externalHasEntity(this.props.call)}
+          disableClickToSms={disableClickToSms}
+        />
       </div>
     );
   }
@@ -631,15 +619,6 @@ ActiveCallItem.propTypes = {
   externalViewEntity: PropTypes.func,
   externalHasEntity: PropTypes.func,
   readTextPermission: PropTypes.bool,
-  isOnConferenceCall: PropTypes.bool,
-  disableMerge: PropTypes.bool,
-  hasActionMenu: PropTypes.bool,
-  showAnswer: PropTypes.bool,
-  avatarUrl: PropTypes.string,
-  showAvatar: PropTypes.bool,
-  showCallDetail: PropTypes.bool,
-  showMergeCall: PropTypes.bool,
-  onMergeCall: PropTypes.func,
 };
 
 ActiveCallItem.defaultProps = {
@@ -667,13 +646,4 @@ ActiveCallItem.defaultProps = {
   externalViewEntity: undefined,
   externalHasEntity: undefined,
   readTextPermission: true,
-  isOnConferenceCall: false,
-  disableMerge: false,
-  hasActionMenu: true,
-  showAnswer: true,
-  avatarUrl: null,
-  showAvatar: false,
-  showCallDetail: true,
-  showMergeCall: false,
-  onMergeCall: undefined,
 };
